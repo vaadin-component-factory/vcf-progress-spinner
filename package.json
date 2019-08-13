@@ -1,7 +1,7 @@
 {
   "name": "@vaadin-component-factory/vcf-progress-spinner",
   "version": "0.1.0",
-  "description": "Vaadin Component Factory Element",
+  "description": "Web Component for customized progress spinners",
   "main": "theme/lumo/vcf-progress-spinner.js",
   "author": "Vaadin Ltd",
   "license": "https://raw.githubusercontent.com/vaadin/vaadin-incubator-element/master/LICENSE",
