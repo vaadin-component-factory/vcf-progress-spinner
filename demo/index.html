@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" />
+    <title>vcf-progress-spinner demo</title>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script type="module">
+      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+      import '@polymer/iron-demo-helpers/demo-snippet';
+      import '@vaadin/vaadin-button';
+      import '../theme/lumo/vcf-progress-spinner.js';
+    </script>
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles"></style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Progress spinner</h3>
+      <demo-snippet>
+        <template>
+          <vcf-progress-spinner value="0.3"></vcf-progress-spinner>
+        </template>
+      </demo-snippet>
+      <h3>Progress spinner with custom bounds</h3>
+      <p>By default, the <code>value</code> is clamped between 0 and 1. You can customize the bounds using the <code>min</code> and the <code>max</code> properties.</p>
+      <p><strong>Note: <code>min</code> must be less then <code>max</code>.</strong></p>
+      <demo-snippet>
+        <template>
+          <vcf-progress-spinner id="progress-spinner-custom-bounds" value="20" min="10" max="110"></vcf-progress-spinner>
+          <vaadin-button id="update-spinner-with-bounds">Update value</vaadin-button>
+          <script>
+            window.addEventListener('WebComponentsReady', function() {
+              document.querySelector('#update-spinner-with-bounds').addEventListener('click', function() {
+                var progress = document.querySelector('#progress-spinner-custom-bounds');
+                progress.value += 10;
+                if (progress.value > progress.max) {
+                  progress.value = progress.min;
+                }
+              });
+            });
+          </script>
+        </template>
+      </demo-snippet>
+      <h3>Indeterminate Progress spinner</h3>
+      <p>When the value is <code>undefined</code>, the progress spinner will animate indefinitely.</p>
+      <demo-snippet>
+        <template>
+          <vcf-progress-spinner></vcf-progress-spinner>
+        </template>
+      </demo-snippet>
+      <h3>Progress spinner with custom style</h3>
+      <demo-snippet>
+        <template>
+          <vcf-progress-spinner class="custom"></vcf-progress-spinner>
+          <custom-style>
+            <style>
+              vcf-progress-spinner.custom {
+                --vaadin-progress-line-width: 6px;
+                --vaadin-progress-circle-size: 60px;
+                --vaadin-progress-background-color: transparent;
+                --vaadin-progress-foreground-color: magenta;
+              }
+            </style>
+          </custom-style>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
