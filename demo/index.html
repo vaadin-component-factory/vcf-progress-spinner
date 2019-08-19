@@ -10,13 +10,22 @@
       import '@polymer/iron-demo-helpers/demo-snippet';
       import '@vaadin/vaadin-button';
       import '../theme/lumo/vcf-progress-spinner.js';
+      window.addEventListener('WebComponentsReady', () => document.querySelector('main').classList.remove('hidden'));
     </script>
     <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles"></style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        main {
+          opacity: 1;
+          transition: opacity 1s;
+        }
+        main.hidden {
+          opacity: 0;
+        }
+      </style>
     </custom-style>
   </head>
   <body>
-    <div class="vertical-section-container centered">
+    <main class="vertical-section-container centered hidden">
       <h3>Progress spinner</h3>
       <demo-snippet>
         <template>
@@ -66,6 +75,6 @@
           </custom-style>
         </template>
       </demo-snippet>
-    </div>
+    </main>
   </body>
 </html>
