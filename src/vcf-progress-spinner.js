@@ -13,8 +13,8 @@ class VcfProgressSpinner extends ElementMixin(ThemableMixin(PolymerElement)) {
           --vaadin-progress-line-width: 2px;
           --vaadin-progress-circle-size: 24px;
           display: block;
-          width: calc(var(--vaadin-progress-circle-size) + var(--vaadin-progress-line-width));
-          height: calc(var(--vaadin-progress-circle-size) + var(--vaadin-progress-line-width));
+          width: calc(var(--vaadin-progress-circle-size) + 2 * var(--vaadin-progress-line-width));
+          height: calc(var(--vaadin-progress-circle-size) + 2 * var(--vaadin-progress-line-width));
           position: relative;
           padding: var(--vaadin-progress-line-width);
           box-sizing: border-box;
@@ -25,6 +25,11 @@ class VcfProgressSpinner extends ElementMixin(ThemableMixin(PolymerElement)) {
         }
         svg {
           overflow: visible;
+          position: absolute;
+          width: var(--vaadin-progress-circle-size);
+          height: var(--vaadin-progress-circle-size);
+          top: var(--vaadin-progress-line-width);
+          left: var(--vaadin-progress-line-width);
         }
         svg circle {
           fill: transparent;
@@ -59,7 +64,7 @@ class VcfProgressSpinner extends ElementMixin(ThemableMixin(PolymerElement)) {
         }
       </style>
 
-      <svg id="circle" width="100%" height="100%">
+      <svg id="circle">
         <circle id="background" r="50%" cx="50%" cy="50%" />
         <circle id="foreground" r="50%" cx="50%" cy="50%" />
       </svg>
@@ -71,7 +76,7 @@ class VcfProgressSpinner extends ElementMixin(ThemableMixin(PolymerElement)) {
   }
 
   static get version() {
-    return '0.1.2';
+    return '0.2.0';
   }
 
   static get properties() {
