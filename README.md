@@ -15,7 +15,7 @@ npm i @vaadin-component-factory/vcf-progress-spinner --save
 Once installed, import it in your application:
 
 ```js
-import '@vaadin-component-factory/vcf-progress-spinner/vcf-progress-spinner.js';
+import '@vaadin-component-factory/vcf-progress-spinner';
 ```
 
 ## Running demo
