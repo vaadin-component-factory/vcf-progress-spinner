@@ -5,15 +5,12 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" />
     <title>vcf-progress-spinner demo</title>
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-    <script type="module">
-      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
-      import '@polymer/iron-demo-helpers/demo-snippet';
-      import '@vaadin/vaadin-button';
-      import '../theme/lumo/vcf-progress-spinner.js';
-      window.addEventListener('WebComponentsReady', () => document.querySelector('main').classList.remove('hidden'));
-    </script>
+    <script type="module" src="demo.js"></script>
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles">
+        .centered {
+          max-width: 1000px;
+        }
         main {
           opacity: 1;
           transition: opacity 1s;
@@ -23,6 +20,9 @@
         }
       </style>
     </custom-style>
+    <script>
+      window.addEventListener('WebComponentsReady', () => document.querySelector('main').classList.remove('hidden'));
+    </script>
   </head>
   <body>
     <main class="vertical-section-container centered hidden">

@@ -1,6 +1,8 @@
 # &lt;vcf-progress-spinner&gt;
 
+## Demo
 
+https://vcf-progress-spinner.netlify.com/
 
 ## Installation
 
@@ -28,7 +30,7 @@ import '@vaadin-component-factory/vcf-progress-spinner/vcf-progress-spinner.js';
 
 ## Contributing
 
-  To contribute to the component, please read [the guideline](https://github.com/vaadin/vaadin-core/blob/master/CONTRIBUTING.md) first.
+To contribute to the component, please read [the guideline](https://github.com/vaadin/vaadin-core/blob/master/CONTRIBUTING.md) first.
 
 ## License
 
