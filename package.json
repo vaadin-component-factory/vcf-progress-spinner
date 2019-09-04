@@ -1,6 +1,6 @@
 {
   "name": "@vaadin-component-factory/vcf-progress-spinner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web Component for customized progress spinners",
   "main": "theme/lumo/vcf-progress-spinner.js",
   "author": "Vaadin Ltd",
