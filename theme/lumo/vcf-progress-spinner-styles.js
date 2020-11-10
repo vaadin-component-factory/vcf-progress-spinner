@@ -1,3 +1,5 @@
+import '@vaadin/vaadin-lumo-styles/style';
+
 const theme = document.createElement('dom-module');
 theme.id = 'vcf-progress-spinner-lumo';
 theme.setAttribute('theme-for', 'vcf-progress-spinner');
