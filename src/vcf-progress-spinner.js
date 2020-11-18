@@ -1,22 +1,62 @@
+/**
+ * @license
+ * Copyright (C) 2015 Vaadin Ltd.
+ * This program is available under Commercial Vaadin Add-On License 3.0 (CVALv3).
+ * See the file LICENSE.md distributed with this software for more information about licensing.
+ * See [the website]{@link https://vaadin.com/license/cval-3} for the complete license.
+ */
+
 import { html, PolymerElement } from '@polymer/polymer/polymer-element';
 import { ThemableMixin } from '@vaadin/vaadin-themable-mixin';
 import { ElementMixin } from '@vaadin/vaadin-element-mixin';
+import '@vaadin/vaadin-license-checker/vaadin-license-checker';
 
+/**
+ * `<vcf-progress-spinner>` Web Component for customized progress spinners
+ *
+ * ```html
+ * <vcf-progress-spinner value="0.5"></vcf-progress-spinner>
+ * ```
+ *
+ * ### Styling
+ *
+ * The following custom properties are available for styling:
+ *
+ * Custom property | Description | Default
+ * ----------------|-------------|-------------
+ * `--vcf-progress-stroke-dasharray` | SVG stroke-dasharray prop, defines dash pattern of circle outline | 314.16%
+ * `--vcf-progress-background-color` | Progress circle background color | rgba(0, 0, 0, 0.1)
+ * `--vcf-progress-foreground-color` | Progress circle background color | rgba(0, 0, 0, 0.5)
+ * `--vcf-progress-line-width` | Progress circle line width | 24px
+ *
+ * The following shadow DOM parts are available for styling:
+ *
+ * Part name | Description
+ * ----------------|----------------
+ * `svg` | SVG element
+ * `background` | Background circle
+ * `foreground` | Foreground circle
+ *
+ * @memberof Vaadin
+ * @mixes ElementMixin
+ * @mixes ThemableMixin
+ * @demo demo/index.html
+ */
 class VcfProgressSpinner extends ElementMixin(ThemableMixin(PolymerElement)) {
   static get template() {
     return html`
       <style>
         :host {
-          --vaadin-progress-stroke-dasharray: 314.16%;
-          --vaadin-progress-background-color: rgba(0, 0, 0, 0.1);
-          --vaadin-progress-foreground-color: var(--primary-color, rgba(0, 0, 0, 0.5));
-          --vaadin-progress-line-width: 2px;
-          --vaadin-progress-circle-size: 24px;
+          --vcf-progress-stroke-dasharray: 314.16%;
+          --vcf-progress-background-color: rgba(0, 0, 0, 0.1);
+          --vcf-progress-foreground-color: rgba(0, 0, 0, 0.5);
+          --vcf-progress-line-width: 2px;
+          --vcf-progress-circle-size: 24px;
           display: block;
-          width: calc(var(--vaadin-progress-circle-size) + 2 * var(--vaadin-progress-line-width));
-          height: calc(var(--vaadin-progress-circle-size) + 2 * var(--vaadin-progress-line-width));
+          width: calc(var(--vcf-progress-circle-size) + 2 * var(--vcf-progress-line-width));
+          height: calc(var(--vcf-progress-circle-size) + 2 * var(--vcf-progress-line-width));
           position: relative;
-          padding: var(--vaadin-progress-line-width);
+          padding: var(--vcf-progress-line-width);
           box-sizing: border-box;
           margin: 8px;
         }
@@ -26,28 +66,28 @@ class VcfProgressSpinner extends ElementMixin(ThemableMixin(PolymerElement)) {
         svg {
           overflow: visible;
           position: absolute;
-          width: var(--vaadin-progress-circle-size);
-          height: var(--vaadin-progress-circle-size);
-          top: var(--vaadin-progress-line-width);
-          left: var(--vaadin-progress-line-width);
+          width: var(--vcf-progress-circle-size);
+          height: var(--vcf-progress-circle-size);
+          top: var(--vcf-progress-line-width);
+          left: var(--vcf-progress-line-width);
         }
         svg circle {
           fill: transparent;
-          stroke-width: var(--vaadin-progress-line-width);
+          stroke-width: var(--vcf-progress-line-width);
         }
         #background {
-          stroke: var(--vaadin-progress-background-color);
+          stroke: var(--vcf-progress-background-color);
         }
         #foreground {
           transition: stroke-dashoffset 150ms;
-          stroke: var(--vaadin-progress-foreground-color);
+          stroke: var(--vcf-progress-foreground-color);
           stroke-linecap: butt;
           /* 2 * radius(50%) * PI */
-          stroke-dasharray: var(--vaadin-progress-stroke-dasharray);
+          stroke-dasharray: var(--vcf-progress-stroke-dasharray);
           /* Start the progress from 12 o'clock */
           transform: rotate(-90deg);
           transform-origin: 50% 50%;
-          stroke-dashoffset: calc(var(--vaadin-progress-stroke-dasharray) * (1 - var(--vaadin-progress-value)));
+          stroke-dashoffset: calc(var(--vcf-progress-stroke-dasharray) * (1 - var(--vcf-progress-value)));
         }
         /* Indeterminate circle */
         :host(:not([value])) #foreground {
@@ -64,9 +104,9 @@ class VcfProgressSpinner extends ElementMixin(ThemableMixin(PolymerElement)) {
         }
       </style>
 
-      <svg id="circle">
-        <circle id="background" r="50%" cx="50%" cy="50%" />
-        <circle id="foreground" r="50%" cx="50%" cy="50%" />
+      <svg id="circle" part="svg">
+        <circle id="background" r="50%" cx="50%" cy="50%" part="background" />
+        <circle id="foreground" r="50%" cx="50%" cy="50%" part="foreground" />
       </svg>
     `;
   }
@@ -118,43 +158,36 @@ class VcfProgressSpinner extends ElementMixin(ThemableMixin(PolymerElement)) {
 
   _normalizedValueChanged(value, min, max) {
     const newNormalizedValue = this._normalizeValue(value, min, max);
-
-    this.style.setProperty('--vaadin-progress-value', newNormalizedValue);
-
-    this.updateStyles({
-      '--vaadin-progress-value': String(newNormalizedValue)
-    });
+    this.style.setProperty('--vcf-progress-value', newNormalizedValue);
+    this.updateStyles({ '--vcf-progress-value': String(newNormalizedValue) });
   }
 
-  _valueChanged(newV, oldV) {
-    this.setAttribute('aria-valuenow', newV);
+  _valueChanged(value) {
+    this.setAttribute('aria-valuenow', value);
   }
 
-  _minChanged(newV, oldV) {
-    this.setAttribute('aria-valuemin', newV);
+  _minChanged(min) {
+    this.setAttribute('aria-valuemin', min);
   }
 
-  _maxChanged(newV, oldV) {
-    this.setAttribute('aria-valuemax', newV);
+  _maxChanged(max) {
+    this.setAttribute('aria-valuemax', max);
   }
 
   /**
    * Percent of current progress relative to whole progress bar (max - min)
    */
   _normalizeValue(value, min, max) {
-    let nV;
-
+    let result;
     if (!value && value != 0) {
-      nV = 0;
+      result = 0;
     } else if (min >= max) {
-      nV = 1;
+      result = 1;
     } else {
-      nV = (value - min) / (max - min);
-
-      nV = Math.min(Math.max(nV, 0), 1);
+      result = (value - min) / (max - min);
+      result = Math.min(Math.max(result, 0), 1);
     }
-
-    return nV;
+    return result;
   }
 }
 
@@ -164,7 +197,3 @@ customElements.define(VcfProgressSpinner.is, VcfProgressSpinner);
  * @namespace Vaadin
  */
 window.Vaadin.VcfProgressSpinner = VcfProgressSpinner;
-
-if (window.Vaadin.runIfDevelopmentMode) {
-  window.Vaadin.runIfDevelopmentMode('vaadin-license-checker', VcfProgressSpinner);
-}

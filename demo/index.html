@@ -1,69 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="hidden">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" />
     <title>vcf-progress-spinner demo</title>
-    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-    <script type="module" src="demo.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
+    <script dev src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script dev type="module" src="demo.js"></script>
     <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
+      <style is="custom-style" include="demo-pages-shared-styles lumo-typography">
+        html {
+          transition: opacity 0.4s;
+        }
+
+        body {
+          background-color: var(--lumo-base-color);
+          padding: 0;
+        }
+
+        h1 {
+          padding: 0 0 var(--lumo-space-l) var(--lumo-space-m);
+        }
+
+        h2 {
+          padding: var(--lumo-space-l) 0 var(--lumo-space-l) var(--lumo-space-m);
+        }
+
+        vcf-anchor-nav {
+          --anchor-nav-inner-max-width: 1000px;
+        }
+
+        vcf-anchor-nav::part(tabs) {
+          box-shadow: inset 0 -1px 0 0 var(--lumo-contrast-20pct);
+        }
+
+        vcf-anchor-nav-section {
+          height: auto;
+          background-color: var(--lumo-base-color);
+        }
+
+        vaadin-button.nav {
+          cursor: pointer;
+        }
+
+        .hidden {
+          opacity: 0;
+        }
+
         .centered {
           max-width: 1000px;
         }
-        main {
-          opacity: 1;
-          transition: opacity 1s;
+
+        .nav {
+          margin: var(--lumo-space-l) var(--lumo-space-m) var(--lumo-space-l) calc(var(--lumo-button-size) * -1 / 6);
         }
-        main.hidden {
-          opacity: 0;
+
+        code:not(.main) {
+          display: inline-block;
+          padding: 2px 4px;
+          background: var(--lumo-shade-10pct);
+          border-radius: var(--lumo-border-radius);
         }
+
+      </style>
+      <style id="codeContainerStyles">
+        .code-container {
+          overflow-x: hidden;
+          overflow-y: scroll;
+        }
+
+        code:not(.main) {
+          font-family: 'Fira Code', monospace;
+        }
+
+        #copyButton {
+          display: none;
+        }
+
+        #copyVaadinButton {
+          position: absolute;
+          margin: 0;
+          top: -1px;
+          right: -1px;
+          text-transform: uppercase;
+          border: none;
+          border-radius: 0;
+          border-bottom-left-radius: var(--lumo-border-radius);
+          cursor: pointer;
+          background: #e0e0e0;
+          color: #333;
+          font-size: 12px;
+        }
+
+        .overflow:not(.top) {
+          box-shadow: inset 0 8px 10px -15px #000;
+        }
+
+        .overflow:not(.top):not(.bottom) {
+          box-shadow: inset 0 8px 10px -15px #000, inset 0 -12px 15px -20px #000;
+        }
+
+        .overflow:not(.bottom) {
+          box-shadow: inset 0 -12px 15px -20px #000;
+        }
+
       </style>
     </custom-style>
-    <script>
-      window.addEventListener('WebComponentsReady', () => document.querySelector('main').classList.remove('hidden'));
-    </script>
   </head>
   <body>
-    <main class="vertical-section-container centered hidden">
-      <h3>Progress spinner</h3>
-      <demo-snippet>
-        <template>
-          <vcf-progress-spinner value="0.3"></vcf-progress-spinner>
-        </template>
-      </demo-snippet>
-      <h3>Progress spinner with custom bounds</h3>
-      <p>By default, the <code>value</code> is clamped between 0 and 1. You can customize the bounds using the <code>min</code> and the <code>max</code> properties.</p>
-      <p><strong>Note: <code>min</code> must be less then <code>max</code>.</strong></p>
-      <demo-snippet>
-        <template>
-          <vcf-progress-spinner id="progress-spinner-custom-bounds" value="20" min="10" max="110"></vcf-progress-spinner>
-          <vaadin-button id="update-spinner-with-bounds">Update value</vaadin-button>
-          <script>
-            window.addEventListener('WebComponentsReady', function() {
-              document.querySelector('#update-spinner-with-bounds').addEventListener('click', function() {
-                var progress = document.querySelector('#progress-spinner-custom-bounds');
-                progress.value += 10;
-                if (progress.value > progress.max) {
-                  progress.value = progress.min;
-                }
+    <vcf-anchor-nav fullscreen theme="expand-last">
+      <a slot="header" href="/api/#/elements/Vaadin.VcfProgressSpinner">
+        <vaadin-button theme="tertiary" class="nav">
+          <iron-icon icon="lumo:angle-right" slot="suffix"></iron-icon>
+          API
+        </vaadin-button>
+      </a>
+      <h1 slot="header"><code class="main">&lt;vcf-progress-spinner&gt;</code></h1>
+      <vcf-anchor-nav-section name="Basic">
+        <h2 slot="header">Basic</h2>
+        <demo-snippet>
+          <template>
+            <vcf-progress-spinner value="0.3"></vcf-progress-spinner>
+          </template>
+        </demo-snippet>
+      </vcf-anchor-nav-section>
+      <vcf-anchor-nav-section name="Indeterminate">
+        <h2 slot="header">Indeterminate</h2>
+        <p>When the value is <code>undefined</code>, the progress spinner will animate indefinitely.</p>
+        <demo-snippet>
+          <template>
+            <vcf-progress-spinner></vcf-progress-spinner>
+          </template>
+        </demo-snippet>
+      </vcf-anchor-nav-section>
+      <vcf-anchor-nav-section name="Custom Bounds">
+        <h2 slot="header">Custom Bounds</h2>
+        <p>By default, the <code>value</code> is clamped between 0 and 1. You can customize the bounds using the <code>min</code> and the <code>max</code> properties.</p>
+        <p><strong>Note: <code>min</code> must be less then <code>max</code>.</strong></p>
+        <demo-snippet>
+          <template>
+            <vcf-progress-spinner id="progress-spinner-custom-bounds" value="20" min="10" max="110"></vcf-progress-spinner>
+            <vaadin-button id="update-spinner-with-bounds">Update value</vaadin-button>
+            <script>
+              window.addEventListener('WebComponentsReady', function () {
+                document.querySelector('#update-spinner-with-bounds').addEventListener('click', function () {
+                  var progress = document.querySelector('#progress-spinner-custom-bounds');
+                  progress.value += 10;
+                  if (progress.value > progress.max) {
+                    progress.value = progress.min;
+                  }
+                });
               });
-            });
-          </script>
-        </template>
-      </demo-snippet>
-      <h3>Indeterminate Progress spinner</h3>
-      <p>When the value is <code>undefined</code>, the progress spinner will animate indefinitely.</p>
-      <demo-snippet>
-        <template>
-          <vcf-progress-spinner></vcf-progress-spinner>
-        </template>
-      </demo-snippet>
-      <h3>Progress spinner with custom style</h3>
-      <demo-snippet>
-        <template>
-          <vcf-progress-spinner class="custom"></vcf-progress-spinner>
-          <custom-style>
+            </script>
+          </template>
+        </demo-snippet>
+      </vcf-anchor-nav-section>
+      <vcf-anchor-nav-section name="Custom Styles">
+        <h2 slot="header">Custom Styles</h2>
+        <p>When the value is <code>undefined</code>, the progress spinner will animate indefinitely.</p>
+        <demo-snippet>
+          <template>
+            <vcf-progress-spinner class="custom"></vcf-progress-spinner>
             <style>
               vcf-progress-spinner.custom {
                 --vaadin-progress-line-width: 6px;
@@ -71,10 +168,11 @@
                 --vaadin-progress-background-color: transparent;
                 --vaadin-progress-foreground-color: magenta;
               }
+
             </style>
-          </custom-style>
-        </template>
-      </demo-snippet>
-    </main>
+          </template>
+        </demo-snippet>
+      </vcf-anchor-nav-section>
+    </vcf-anchor-nav>
   </body>
 </html>
