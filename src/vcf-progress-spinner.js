@@ -115,6 +115,10 @@ class VcfProgressSpinner extends ElementMixin(ThemableMixin(PolymerElement)) {
     return 'vcf-progress-spinner';
   }
 
+  static get version() {
+    return '1.1.0';
+  }
+
   static get properties() {
     return {
       /**
