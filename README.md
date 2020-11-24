@@ -44,12 +44,6 @@ Add `<vcf-progress-spinner>` element to the page.
 
 1. Run `npm start` to open the demo.
 
-## Vaadin Pro
-
-This component is available in the Vaadin Pro subscription. It is still open source, but you need to have a valid CVAL license in order to use it. Read more at: [Pricing](https://vaadin.com/pricing)
-
 ## License
 
-Commercial Vaadin Add-on License version 3 (CVALv3). For license terms, see: [LICENSE](https://github.com/vaadin-component-factory/vcf-progress-spinner/blob/master/LICENSE)
-
-Vaadin collects development time usage statistics to improve this product. For details and to opt-out, see: [Vaadin Usage Statistics](https://github.com/vaadin/vaadin-usage-statistics)
+Apache License 2.0
