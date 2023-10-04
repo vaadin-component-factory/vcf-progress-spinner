@@ -6,7 +6,7 @@
 
 import { html, PolymerElement } from '@polymer/polymer/polymer-element';
 import { ThemableMixin } from '@vaadin/vaadin-themable-mixin';
-import { ElementMixin } from '@vaadin/vaadin-element-mixin';
+import { ElementMixin } from '@vaadin/component-base/src/element-mixin.js';
 
 /**
  * `<vcf-progress-spinner>` Web Component for customized progress spinners

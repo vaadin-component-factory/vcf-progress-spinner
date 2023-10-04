@@ -1,6 +1,6 @@
 {
   "name": "@vaadin-component-factory/vcf-progress-spinner",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Web Component for customized progress spinners",
   "main": "src/vcf-progress-spinner.js",
   "author": "Vaadin Ltd",
@@ -41,10 +41,10 @@
     ]
   },
   "dependencies": {
-    "@polymer/polymer": "^3.0.0",
-    "@vaadin/vaadin-element-mixin": "^2.1.3",
-    "@vaadin/vaadin-lumo-styles": "^1.5.0",
-    "@vaadin/vaadin-themable-mixin": "^1.5.1"
+    "@polymer/polymer": "^3.4.1",
+    "@vaadin/component-base": "^24.1.1",
+    "@vaadin/vaadin-lumo-styles": "^24.1.1",
+    "@vaadin/vaadin-themable-mixin": "^24.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -54,8 +54,6 @@
     "@polymer/iron-demo-helpers": "^3.0.0-pre.19",
     "@polymer/iron-iconset-svg": "^3.0.1",
     "@polymer/test-fixture": "^4.0.2",
-    "@vaadin-component-factory/vcf-anchor-nav": "^1.0.1",
-    "@vaadin-component-factory/vcf-element-util": "^0.1.4",
     "@vaadin/vaadin-button": "2.2.2",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "babel-eslint": "^10.0.2",
